@@ -138,3 +138,6 @@ def pageDown():
 #실행코드
 if __name__ == "__main__":
     APP.run(debug=True)
+    
+    def fsdfs():
+        print("hello")
