@@ -19,6 +19,18 @@
 <body>
     {% if template.user.isLogged %}
     <div class="mypage-interface">
+        <h3>{{template.user_list[template.user_id_list[template.user.name]]}}</h3>
+        <table class="table">
+        {% for product in template.all_Products %}
+            {% if template.user.name==product.user_id %}
+                <tr>
+                    <td><a href="product-info" class="product-info">{{product.name}}</a></td>
+                    <td>{{product.price}}</td>
+                </tr>
+            {%endif%}
+        {% endfor %}
+        </table>
+        <a href="#" class="myfollower">팔로워</a>
         <a href="#" class="mypage-close">닫기</a>
     </div>
     {% endif %}

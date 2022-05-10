@@ -20,7 +20,7 @@
             {% for product in template.product_list %}
             <tr>
                 <td>{{product.id}}</td>
-                <td>{{template.user_list[product.user_id]}}</td>
+                <td>{{product.user_id}}</td>
                 <td><a href="product-info" class="product-info">{{product.name}}</a></td>
                 <td>{{product.price}}</td>
             </tr>

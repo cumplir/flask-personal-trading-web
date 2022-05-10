@@ -2,12 +2,14 @@ from product import Product
 
 class User:
     user_list = []
+    user_ID_list={}
     def __init__(self, id, name, password):
         self.id = id
         self.name = name
         self.password = password
         self.isLogged = False;
         self.product_list = []
+        self.followerlist=[]
     
     @classmethod
     def add_user(cls, name, password):
@@ -16,6 +18,7 @@ class User:
                 return False
         id = len(cls.user_list)
         cls.user_list.append(User(id ,name, password))
+        cls.user_ID_list[name]=id;
         return True
 
     @classmethod
@@ -30,7 +33,9 @@ class User:
     def logout(cls):
         for user in cls.user_list:
             user.logout_instance()
-    
+            
+    def add_follower(self,otherID):
+        self.followerlist.append(otherID)
     def log_instance(self):
         self.isLogged = True;
     
@@ -40,6 +45,8 @@ class User:
     def set_product(self, product_name, desc, price):
         product_id = Product.add_product(product_name, desc, price, self.id)
         self.product_list.append(product_id)
+        
+    
     
     def __repr__(self):
         return self.name

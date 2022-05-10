@@ -310,3 +310,11 @@ body {
     position: absolute;
     bottom: 10px; right: 10px;
 }
+
+.mypage-interface .myfollower{
+    text-decoration: none;
+    color: #000;
+    font-family: 'gugi', cursive;
+    position: absolute;
+    bottom: 10px; left: 10px;
+}
