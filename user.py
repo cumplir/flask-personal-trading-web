@@ -36,6 +36,7 @@ class User:
             
     def add_follower(self,otherID):
         self.followerlist.append(otherID)
+
     def log_instance(self):
         self.isLogged = True;
     
@@ -46,7 +47,5 @@ class User:
         product_id = Product.add_product(product_name, desc, price, self.id)
         self.product_list.append(product_id)
         
-    
-    
     def __repr__(self):
         return self.name

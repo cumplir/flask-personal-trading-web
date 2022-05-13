@@ -1,0 +1,28 @@
+<!-- jinja2 템플릿 언어를 사용함 -->
+
+<!-- 기본 구조 상속 -->
+{% extends "index.html" %}
+
+{% set product = template.all_Products[selected_product] %}
+
+{% block contents %}
+<div id="contents">
+    <div class="product-info-container">
+        <div class="product-info">
+            <p class="title">물품 이름 : </p>
+            <p class="info">{{ product }}</p>
+            <hr>
+            <p class="title">물품 정보 : </p>
+            <p class="info">{{ product.desc }}</p>
+            <hr>
+            <p class="title">물품 가격 : {{ product.price }}원</p>
+            <hr>
+            <p class="title">판매 유저 아이디 : {{ product.user_id }}</p>
+        </div>
+        <img src="{{ img_url }}" alt="{{ product.name }}">
+
+        <a class="backLink" href="/product">물품 더 보기</a>
+    </div>
+
+</div>
+{% endblock %}

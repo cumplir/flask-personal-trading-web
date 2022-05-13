@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Noto+Sans+KR:wght@500&display=swap');
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Koulen&display=swap');
+
 
 * {
     margin: 0;
@@ -193,6 +195,77 @@ body {
     overflow: hidden;
 }
 
+
+.product-form {
+    position: absolute;
+    top: 60px; left: 100px;
+    width: 600px; height: 500px;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px 4px #888;
+    border-radius: 10px;
+    z-index: 10;
+    display: none;
+    padding: 25px;
+}
+
+.product-form .label{
+    float:left;
+    width: 250px;
+}
+
+.product-form label {
+    display: inline-block;
+    width: 50px;
+    font-family: 'gugi', cursive;
+}
+
+.product-form input[name="name"], input[name="price"], input[type="file"], input[name="keyword"]{
+    margin-bottom: 20px;
+    padding: 4px;
+}
+
+.product-form input[type="submit"]{
+    margin-top: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.product-form textarea {
+    width: 500px;
+    height: 250px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 2px #666  ;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: both;
+}
+
+.product-form textarea::-webkit-scrollbar{
+    width: 10px;
+}
+
+.product-form textarea::-webkit-scrollbar-thumb{
+    background-color:#F5B971;
+}
+
+.product-form .close-form {
+    display: block;
+    text-decoration: none;
+    padding: 5px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 20px;
+    font-family: 'gugi', cursive;
+    position: absolute;
+    bottom: 10px; right: 10px;
+    
+}
+
+
 .table thead {
     background-color: #333;
     color: #fff;
@@ -311,10 +384,157 @@ body {
     bottom: 10px; right: 10px;
 }
 
+.mypage-interface .name {
+    margin-left: 20px;
+    font-family: 'gugi', cursive;
+    border-bottom: 1px solid #888;
+    height: 50px;
+    line-height: 50px;
+}
+
+.mypage-interface .products {
+    list-style: none;
+    margin: 20px;
+    width: 220px; height: 200px;
+    overflow: scroll;
+}
+
+.mypage-interface .products::-webkit-scrollbar{
+    width: 10px;
+}
+
+.mypage-interface .products::-webkit-scrollbar-thumb{
+    background-color:#F5B971;
+}
+
+.mypage-interface .products li {
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
+
+.mypage-interface .products li.first {
+    background-color: #eee;
+}
+
+.mypage-interface .products .product-name {
+    display: inline-block;
+    width: 140px; height: 25px;
+    border-right: 1px solid black;
+}
+
+.mypage-interface .products .product-info {
+    text-decoration: none;
+    color: #000;
+    overflow: hidden;
+}
+
+.mypage-interface .products .price {
+    float: right;
+    width: 60px;
+    text-align: center;
+    overflow: hidden;
+}
+
 .mypage-interface .myfollower{
     text-decoration: none;
     color: #000;
     font-family: 'gugi', cursive;
     position: absolute;
     bottom: 10px; left: 10px;
+}
+
+.mypage-interface .follows {
+    list-style: none;
+    margin: 20px;
+    width: 180px; height: 70px;
+    overflow: scroll;
+}
+
+.mypage-interface .follows::-webkit-scrollbar{
+    width: 10px;
+}
+
+.mypage-interface .follows::-webkit-scrollbar-thumb{
+    background-color:#F5B971;
+}
+
+.mypage-interface .follows .first {
+    background-color: #eee;
+}
+
+.mypage-interface .follows .follow-list {
+    border-bottom: 1px solid #aaa;
+    font-weight: bold;
+}
+
+.mypage-interface .follows .follow-name {
+    display: inline-block;
+    width: 100px; height: 25px;
+    border-right: 1px solid black;
+    font-family: 'gugi', cursive;
+}
+
+.mypage-interface .follows .follow {
+    float: right;
+    width: 60px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.mypage-interface .set-product {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'gugi', cursive;
+    display: block;
+    padding: 8px;
+    background-color: #333;
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+    border-radius: 25px;
+    font-family: 'Jua', sans-serif;
+}
+
+
+.product-info-container {
+    width: 800px; height: 500px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.product-info-container .product-info {
+    position: absolute;
+    top: 100px; left: 55%;
+    font-family: 'Jua', sans-serif;
+}
+
+.product-info-container .product-info .title {
+}
+
+..product-info-container product-info .info {
+    margin-left: 30px;
+}
+
+.product-info-container .product-info hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.product-info-container img {
+    width: 400px; height: 240px;
+    position: relative;
+    top: 100px;
+    box-shadow: 0px 8px 15px 10px #aaa;
+}
+
+.product-info-container .backLink {
+    position: absolute;
+    bottom: 50px; right: 50px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    background-color: #555;
+    border-radius: 20px;
 }
