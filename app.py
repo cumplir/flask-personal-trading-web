@@ -5,7 +5,7 @@ from product import Product
 # 웹 서버 생성
 APP = Flask(__name__)
 
-product_images = ['books', 'kitchen', 'pig', 'vegetables', 'watch']
+product_images = ['kitchen', 'vegetables', 'books', 'watch', 'pig']
 
 # 템플릿을 렌더할 때 공통적으로 거치는 인터페이스 
 template = {
@@ -29,6 +29,9 @@ Product.add_product('자아와 명상 book','000교수님 자아아 명상 교�
 Product.add_product('오마이걸 음원','리얼러브 앨범', 30000, '최신', 'nojy99', 3)
 Product.add_product('컴퓨터 구조 족보','2009년부터 21년까지의 족보모음집', 40000, '필수', 'leejunsoo', 2)
 Product.add_product('디지털 신호 처리 솔루션','퀴즈 및 과제 솔루션', 28000, '필수교재', 'junsu', 4)
+Product.add_product('스타벅스 아메리카노 기프티콘', '2023년 6월까지 쓸 수 있는 아이스 아메리카노 기프티콘', 4500, '디저트', 'junsu', 0)
+Product.add_product('베스킨라빈스 엄마는 외계인 기프티콘', '2023년 6월까지 쓸 수 있는 선물용 기프티콘', 5000, '디저트', 'junsu', 3)
+
 
 
 #메인화면
@@ -51,7 +54,7 @@ def login():
         else:
             #로그인 성공
             print('logged')
-            return redirect('/');
+            return redirect('/')
     #로그인 폼
     return render_template('login.html', template=template)
 
@@ -72,23 +75,22 @@ def signup():
             return render_template('home.html', template=template)
     else:
         #회원가입 폼
-        
         return render_template('register.html', template=template)
     
 #물품 업로드
 @APP.route("/product-form", methods=["GET", "POST"])
 def Upload():
     if request.method == 'POST':
-       name=request.form['name']
-       keword=request.form['keyword']
-       Price=request.form['price']
-       ImageId=request.form['image']
-       Desc=request.form['desc']
+        name=request.form['name']
+        keword=request.form['keyword']
+        Price=request.form['price']
+        ImageId=int(request.form['image'])
+        Desc=request.form['desc']
     else:
-        return redirect('')
-    Product.add_product(name,Desc, Price,keword, template['user'].name, ImageId)
+        return redirect('/')
+    id = Product.add_product(name, Desc, Price, keword, template['user'].name, ImageId)
     template['all_Products']=Product.product_list
-    return redirect('/product')
+    return render_template('mypage.html', template=template)
 
 #로그아웃
 @APP.route('/logout')
@@ -116,9 +118,51 @@ def Search():
 #물품 정보
 @APP.route('/product-info/<int:product_id>')
 def product_info(product_id):
-    img_url = url_for('static', filename='images/{}.jpg'.format(product_images[int(template['all_Products'][product_id].selected_id)]));
-    return render_template('product_info.html', template=template, selected_product = product_id, img_url = img_url);
+    product = Product.search(product_id)
+    img_url = url_for('static', filename=f'images/{product_images[product.selected_id]}.jpg');
+    return render_template('product_info.html', template=template, product=product, img_url = img_url);
 
+@APP.route('/mypage')
+def mypage():
+    return render_template('mypage.html', template=template)
+
+#물품 정보 업데이트
+@APP.route('/product-update/<int:product_id>', methods=["GET","POST"])
+def product_update(product_id):
+    product = Product.search(product_id)
+    print(product ,"update...")
+
+    product.name=request.form['name']
+    product.keyword=request.form['keyword']
+    product.price=request.form['price']
+    product.selected_id=int(request.form['image'])
+    product.desc=request.form['desc']
+
+    template['all_Products'] = Product.product_list;
+    print(product, '...updated')
+    return redirect(f'/product-info/{product_id}')
+
+@APP.route('/soldout', methods=["GET","POST"])
+def soldout():
+    num=int(request.args.get("soldout"))
+    if template['all_Products'][num].soldout == 1:
+        Product.product_list[num].soldout=0
+        template['all_Products'][num].soldout = 0
+    else:
+        Product.product_list[num].soldout=1
+        template['all_Products'][num].soldout = 1
+    return redirect('/mypage')
+
+
+#물품 정보 삭제
+@APP.route('/product-delete/<int:product_id>')
+def product_delete(product_id):
+    Product.delete(product_id);
+
+    template['all_Products'] = Product.product_list
+    return redirect('/product');
+
+#페이지네이션
 @APP.route('/page_up')
 def pageUp():
     if template['current_page'] < len(Product.product_list)/10 - 1:
@@ -134,6 +178,3 @@ def pageDown():
 #실행코드
 if __name__ == "__main__":
     APP.run(debug=True)
-    
-    def fsdfs():
-        print("hello")

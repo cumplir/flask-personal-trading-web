@@ -1,5 +1,7 @@
 <!-- jinja2 템플릿 언어를 사용함 -->
 <!-- 전체 기본 구조(상속) -->
+{% set option_list = ["가구류", "과일/채소", "도서/문제집", "악세사리", "기타"] %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +18,9 @@
     </style>
 </head>
 <body>
-
     {% if template.user.isLogged %}
     <!--물품등록 폼-->
-    <form class="product-form" action="/product-form" method="post" enctype="multipart/form-data">
+    <form class="product-form post" action="/product-form" method="post">
         <div class="labels">
             <div class="label">
                 <label for="name">Name</label>
@@ -36,11 +37,9 @@
             <div class="label">
                 <label for="image">Image</label>
                 <select name="image" id="image">
-                    <option value="0">가구류</option>
-                    <option value="1">과일/채소</option>
-                    <option value="2">도서/문제집</option>
-                    <option value="3">악세사리</option>
-                    <option value="4">기타</option>
+                    {% for op in option_list %}
+                        <option value="{{loop.index0}}">{{op}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -50,46 +49,10 @@
         <input type="submit" value="SEND" id="product-submit"/>
         <a href="#" class="close-form">닫기</a>
     </form>
-
+    {%endif%}
 
     <!-- 마이페이지 -->
-    <div class="mypage-interface">
-        <h3 class="name">{{template.user_list[template.user_id_list[template.user.name]]}}님의 마이페이지</h3>
-        <ul class="products">
-            <li class="first"><span class="product-name">물품</span><span class="price">가격</span></li>
-        {% for product in template.all_Products %}
-            {% if template.user.name==product.user_id %}
-                <li>
-                    <span class="product-name"><a href="product-info/{{product.id}}" class="product-info">{{product.name}}</a></span>
-                    <span class="price">{{product.price}}</span>
-                </li>
-            {%endif%}
-        {% endfor %}
-        </ul>
-
-        <ul class="follows">
-            <li class="follow-list first">
-                <span class="follow-name">유저</span>
-                <span class="follow">
-                    팔로우
-                </span>
-            </li>
-            {% for user in template.user_list %}
-                <li class="follow-list">
-                    <span class="follow-name">{{ user.name }}</span>
-                    <span class="follow">
-                        팔로우
-                    </span>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <a href="#" class="myfollower">팔로워</a>
-        <a href="#" class="mypage-close">닫기</a>
-        <a href="#" class="set-product">풀품등록</a>
-    </div>
-    {% endif %}
-
+    
     <div id="container">
         <div id="header" class="clearfix">
             <div class="wrap">
@@ -102,7 +65,7 @@
                 </form>
                 <div class="links">
                     {% if template.user.isLogged %}
-                        <a href="/myPage" class="my-page">{{ template.user.name }}님</a>
+                        <a href="/mypage">{{ template.user.name }}님</a>
                         <a href="/logout" class="logout_link">로그아웃</a>
                     {% else %}
                         <a href="/login" class="login_link">로그인</a>

@@ -3,8 +3,12 @@ const myPageInterface = $('.mypage-interface');
 const myPageClose = $('.mypage-close');
 
 const setProductLink = $('.set-product');
-const productForm = $('.product-form');
-const productClose = $('.close-form');
+const productForm = $('.post');
+const productClose = $('.post .close-form');
+
+const updateProductLink = $('.updateLink');
+const updateForm = $('.update');
+const product_updateClose = $('.update .close-form');
 
 
 $(document).ready(function(){
@@ -25,5 +29,15 @@ $(document).ready(function(){
     productClose.click(function(e){
         e.preventDefault();
         productForm.fadeOut();
+    })
+
+    updateProductLink.click(function(e){
+        e.preventDefault();
+        updateForm.fadeIn();
+    })
+
+    product_updateClose.click(function(e){
+        e.preventDefault();
+        updateForm.fadeOut();
     })
 })

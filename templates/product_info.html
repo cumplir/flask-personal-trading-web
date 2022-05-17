@@ -3,7 +3,7 @@
 <!-- 기본 구조 상속 -->
 {% extends "index.html" %}
 
-{% set product = template.all_Products[selected_product] %}
+{% set option_list = ["가구류", "과일/채소", "도서/문제집", "악세사리", "기타"] %}
 
 {% block contents %}
 <div id="contents">
@@ -18,10 +18,58 @@
             <p class="title">물품 가격 : {{ product.price }}원</p>
             <hr>
             <p class="title">판매 유저 아이디 : {{ product.user_id }}</p>
+            <hr>
+            {%if product.soldout == 1%}
+                <p class="title">판매 상태 : 판매완료</p>
+                <hr>
+            {% endif %}
+            {%if product.soldout == 0%}
+                <p class="title">판매 상태 : 판매중</p>
+                <hr>
+            {% endif %}
         </div>
         <img src="{{ img_url }}" alt="{{ product.name }}">
+        <a class="aLink backLink" href="/product">물품 더 보기</a>
+        {% if template.user.name == product.user_id %}
+            <a class="aLink updateLink" href="#">수정하기</a>
+            <a class="aLink deleteLink" href="/product-delete/{{ product.id }}">삭제하기</a>
 
-        <a class="backLink" href="/product">물품 더 보기</a>
+
+        <!--물품등록 폼-->
+        <form class="product-form update" action="/product-update/{{product.id}}" method="post">
+            <div class="labels">
+                <div class="label">
+                    <label for="name">Name</label>
+                    <input name="name" type="text" placeholder="Name" id="name" value="{{ product.name }}" />
+                </div>
+                <div class="label">
+                    <label for="price">Price</label>
+                    <input name="price" type="number" placeholder="price" id="price" value="{{ product.price }}"/>
+                </div>
+                <div class="label">
+                    <label for="keyword">Key</label>
+                    <input name="keyword" type="text" placeholder="keyword" id="keyword" value="{{ product.keyword }}"/>
+                </div>
+                <div class="label">
+                    <label for="image">Image</label>
+                    <select name="image" id="image">
+                        {% for op in option_list %}
+                            {% if loop.index == product.selected_id %}
+                            <option value="{{loop.index0}}" selected>{{op}}</option>
+                            {% else %}
+                            <option value="{{loop.index0}}">{{op}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <textarea class="span" name="desc" id="desc">{{product.desc}}</textarea>
+            </p>
+            <input type="submit" value="update" id="product-submit"/>
+            <a href="#" class="close-form">닫기</a>
+            </form>
+        {% endif %}
     </div>
 
 </div>

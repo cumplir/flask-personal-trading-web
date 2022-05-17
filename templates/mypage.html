@@ -1,0 +1,44 @@
+<!-- jinja2 템플릿 언어를 사용함 -->
+
+<!-- 기본 구조 상속 -->
+{% extends "index.html" %}
+{% block contents %}
+<div class="mypage-contents">
+    <h3 class="name">{{template.user_list[template.user_id_list[template.user.name]]}}님의 마이페이지</h3><br>
+    <ul class="products">
+        <li class="first"><span class="product-name">물품</span><span class="price">가격</span><span class="soldout">sold</span></li>
+    {% for product in template.all_Products %}
+        {% if template.user.name==product.user_id %}
+            <li>
+                <span class="product-name"><a href="/product-info/{{product.id}}" class="product-info">{{product.name}}</a></span>
+                <span class="price">{{product.price}}</span>
+                {%if product.soldout == 0 %}
+                    <span class="soldout"><form action="/soldout"><button type="submit" value={{product.id}} name ="soldout"><img src="../static/images/blank_box.png" class="img"></button></form></span>
+                {%endif%}
+                {%if product.soldout == 1 %}
+                    <span class="soldout"><form action="/soldout"><button type="submit" value={{product.id}} name ="soldout"><img src="../static/images/check_box.png" class="img" ></button></form></span>
+                {%endif%}
+            </li>
+        {%endif%}
+    {% endfor %}
+    </ul>
+    <ul class="follows">
+        <li class="follow-list first">
+            <span class="follow-name">유저</span>
+            <span class="follow">
+                팔로우
+            </span>
+        </li>
+        {% for user in template.user_list %}
+            <li class="follow-list">
+                <span class="follow-name">{{ user.name }}</span>
+                <span class="follow">
+                    팔로우
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="#" class="myfollower">팔로워</a>
+    <a href="#" class="set-product">풀품등록</a>
+</div>
+{% endblock %}

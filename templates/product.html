@@ -13,6 +13,7 @@
                 <th class="user">User</th>
                 <th class="product">Product</th>
                 <th class="price">가격</th>
+                <th class="sold">판매상태</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,12 @@
                 <td>{{product.user_id}}</td>
                 <td><a href="product-info/{{product.id}}" class="product-info">{{product.name}}</a></td>
                 <td>{{product.price}}</td>
+                {%if product.soldout == 0%}
+                <td>판매중</td>
+                {%endif%}
+                {%if product.soldout == 1%}
+                <td>판매완료</td>
+                {%endif%}
             </tr>
             {% endfor %}
         </tbody>

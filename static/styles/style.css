@@ -196,9 +196,22 @@ body {
 }
 
 
-.product-form {
+.post {
     position: absolute;
     top: 60px; left: 100px;
+    width: 600px; height: 500px;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px 4px #888;
+    border-radius: 10px;
+    z-index: 10;
+    display: none;
+    padding: 25px;
+}
+
+.update {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     width: 600px; height: 500px;
     background-color: #fff;
     box-shadow: 1px 1px 10px 4px #888;
@@ -283,6 +296,7 @@ body {
 .table thead .user {width: 200px;}
 .table thead .product {width: 200px;}
 .table thead .price {width: 100px;}
+.table thead .sold {width: 120px;}
 
 .table .product-info {
     text-decoration: none;
@@ -366,122 +380,133 @@ body {
     background-color: #666;
 }
 
-.mypage-interface {
-    width: 400px; height: 400px;
-    position: absolute;
-    top: 15%; left: 100%;
-    z-index: 10;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 1px 1px 10px 1px #333;
+.mypage-contents {
+    margin:0 20px;
+    width: 100vw; height: 70vh;
+    background: none;
+    position: relative;
 }
 
-.mypage-interface .mypage-close {
-    text-decoration: none;
-    color: #000;
-    font-family: 'gugi', cursive;
-    position: absolute;
-    bottom: 10px; right: 10px;
-}
-
-.mypage-interface .name {
-    margin-left: 20px;
+.mypage-contents .name {
+    margin: 10px auto;
+    text-align: left;
     font-family: 'gugi', cursive;
     border-bottom: 1px solid #888;
     height: 50px;
     line-height: 50px;
 }
 
-.mypage-interface .products {
+.mypage-contents .products {
     list-style: none;
     margin: 20px;
-    width: 220px; height: 200px;
+    width: 600px; height: 300px;
     overflow: scroll;
 }
 
-.mypage-interface .products::-webkit-scrollbar{
+.mypage-contents .products::-webkit-scrollbar{
     width: 10px;
 }
 
-.mypage-interface .products::-webkit-scrollbar-thumb{
+.mypage-contents .products::-webkit-scrollbar-thumb{
     background-color:#F5B971;
 }
 
-.mypage-interface .products li {
+.mypage-contents .products li {
     border-bottom: 1px solid black;
     font-weight: bold;
 }
 
-.mypage-interface .products li.first {
+.mypage-contents .products li.first {
     background-color: #eee;
 }
 
-.mypage-interface .products .product-name {
+.mypage-contents .products .product-name {
     display: inline-block;
-    width: 140px; height: 25px;
+    width: 350px; height: 25px;
     border-right: 1px solid black;
 }
 
-.mypage-interface .products .product-info {
+.mypage-contents .products .product-info {
     text-decoration: none;
     color: #000;
     overflow: hidden;
 }
 
-.mypage-interface .products .price {
-    float: right;
-    width: 60px;
+.mypage-contents .products .price {
+    width: 100px;
+    display: inline-block;
     text-align: center;
+    border-right: 1px solid black;
+    overflow: hidden;
+}
+.mypage-contents .products .soldout {
+    float: right;
+    width: 50px;
+    text-align: left;
     overflow: hidden;
 }
 
-.mypage-interface .myfollower{
+.mypage-contents .products button{
+    border:none;
+    background:none;
+}
+.mypage-contents .products .img{
+    width:18px;
+    height:18px;
+    margin-top: 3px;
+}
+
+
+
+.mypage-contents .myfollower{
     text-decoration: none;
     color: #000;
     font-family: 'gugi', cursive;
     position: absolute;
-    bottom: 10px; left: 10px;
+    top: 30px; right: 250px;
 }
 
-.mypage-interface .follows {
+.mypage-contents .follows {
+    position: absolute;
+    top:80px; right: 80px;
     list-style: none;
     margin: 20px;
-    width: 180px; height: 70px;
+    width: 180px; height: 300px;
     overflow: scroll;
 }
 
-.mypage-interface .follows::-webkit-scrollbar{
+.mypage-contents .follows::-webkit-scrollbar{
     width: 10px;
 }
 
-.mypage-interface .follows::-webkit-scrollbar-thumb{
+.mypage-contents .follows::-webkit-scrollbar-thumb{
     background-color:#F5B971;
 }
 
-.mypage-interface .follows .first {
+.mypage-contents .follows .first {
     background-color: #eee;
 }
 
-.mypage-interface .follows .follow-list {
+.mypage-contents .follows .follow-list {
     border-bottom: 1px solid #aaa;
     font-weight: bold;
 }
 
-.mypage-interface .follows .follow-name {
+.mypage-contents .follows .follow-name {
     display: inline-block;
     width: 100px; height: 25px;
     border-right: 1px solid black;
     font-family: 'gugi', cursive;
 }
 
-.mypage-interface .follows .follow {
+.mypage-contents .follows .follow {
     float: right;
     width: 60px;
     text-align: center;
     overflow: hidden;
 }
 
-.mypage-interface .set-product {
+.mypage-contents .set-product {
     text-decoration: none;
     color: #fff;
     font-family: 'gugi', cursive;
@@ -490,7 +515,7 @@ body {
     background-color: #333;
     position: absolute;
     bottom: 50px;
-    right: 20px;
+    left: 20px;
     border-radius: 25px;
     font-family: 'Jua', sans-serif;
 }
@@ -509,10 +534,7 @@ body {
     font-family: 'Jua', sans-serif;
 }
 
-.product-info-container .product-info .title {
-}
-
-..product-info-container product-info .info {
+.product-info-container product-info .info {
     margin-left: 30px;
 }
 
@@ -528,13 +550,24 @@ body {
     box-shadow: 0px 8px 15px 10px #aaa;
 }
 
-.product-info-container .backLink {
+.product-info-container .aLink {
     position: absolute;
-    bottom: 50px; right: 50px;
     text-decoration: none;
     color: #fff;
     display: block;
     padding: 10px;
     background-color: #555;
     border-radius: 20px;
+}
+
+.product-info-container .backLink {
+    bottom: 50px; right: 50px;
+}
+
+.product-info-container .updateLink {
+    bottom: 50px; left: 0px;
+}
+
+.product-info-container .deleteLink {
+    bottom: 50px; left: 100px;
 }
