@@ -463,9 +463,8 @@ body {
     color: #000;
     font-family: 'gugi', cursive;
     position: absolute;
-    top: 30px; right: 250px;
+    top: 30px; right: 100px;
 }
-
 .mypage-contents .follows {
     position: absolute;
     top:80px; right: 80px;
@@ -494,9 +493,9 @@ body {
 
 .mypage-contents .follows .follow-name {
     display: inline-block;
-    width: 100px; height: 25px;
-    border-right: 1px solid black;
+    width: 150px; height: 25px;
     font-family: 'gugi', cursive;
+    margin-left:20px;
 }
 
 .mypage-contents .follows .follow {
@@ -521,6 +520,139 @@ body {
 }
 
 
+
+.otherpage-contents {
+    margin:0 20px;
+    width: 100vw; height: 70vh;
+    background: none;
+    position: relative;
+}
+
+.otherpage-contents .name {
+    margin: 10px auto;
+    text-align: left;
+    font-family: 'gugi', cursive;
+    border-bottom: 1px solid #888;
+    height: 50px;
+    line-height: 50px;
+}
+
+.otherpage-contents .products {
+    list-style: none;
+    margin: 20px;
+    width: 540px; height: 300px;
+    overflow: scroll;
+}
+
+.otherpage-contents .products::-webkit-scrollbar{
+    width: 10px;
+}
+
+.otherpage-contents .products::-webkit-scrollbar-thumb{
+    background-color:#F5B971;
+}
+
+.otherpage-contents .products li {
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
+
+.otherpage-contents .products li.first {
+    background-color: #eee;
+}
+
+.otherpage-contents .products .product-name {
+    display: inline-block;
+    width: 350px; height: 25px;
+    border-right: 1px solid black;
+}
+
+.otherpage-contents .products .product-info {
+    text-decoration: none;
+    color: #000;
+    overflow: hidden;
+}
+
+.otherpage-contents .products .price {
+    width: 150px;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+.otherpage-contents .products button{
+    border:none;
+    background:none;
+}
+.otherpage-contents .products .img{
+    width:18px;
+    height:18px;
+    margin-top: 3px;
+}
+
+
+
+.otherpage-contents .myfollower{
+    text-decoration: none;
+    color: #000;
+    font-family: 'gugi', cursive;
+    position: absolute;
+    top: 30px; right: 100px;
+}
+.otherpage-contents .follows {
+    position: absolute;
+    top:80px; right: 80px;
+    list-style: none;
+    margin: 20px;
+    width: 180px; height: 300px;
+    overflow: scroll;
+}
+
+.otherpage-contents .follows::-webkit-scrollbar{
+    width: 10px;
+}
+
+.otherpage-contents .follows::-webkit-scrollbar-thumb{
+    background-color:#F5B971;
+}
+
+.otherpage-contents .follows .first {
+    background-color: #eee;
+}
+
+.otherpage-contents .follows .follow-list {
+    border-bottom: 1px solid #aaa;
+    font-weight: bold;
+}
+
+.otherpage-contents .follows .follow-name {
+    display: inline-block;
+    width: 150px; height: 25px;
+    font-family: 'gugi', cursive;
+    margin-left:20px;
+}
+
+.otherpage-contents .follows .follow {
+    float: right;
+    width: 60px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.mypage-contents .set-product {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'gugi', cursive;
+    display: block;
+    padding: 8px;
+    background-color: #333;
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    border-radius: 25px;
+    font-family: 'Jua', sans-serif;
+}
 .product-info-container {
     width: 800px; height: 500px;
     position: absolute;

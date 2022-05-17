@@ -17,7 +17,6 @@
             </tr>
         </thead>
         <tbody>
-
             {% for product in template.product_list %}
             <tr>
                 <td>{{product.id}}</td>
@@ -34,11 +33,10 @@
             {% endfor %}
         </tbody>
     </table>
-
+    
     <div class="page-controller">
         <a href="page_down">이전</a>
         <a href="page_up">다음</a>
     </div>
-    
 </div>
 {% endblock %}

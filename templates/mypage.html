@@ -4,7 +4,7 @@
 {% extends "index.html" %}
 {% block contents %}
 <div class="mypage-contents">
-    <h3 class="name">{{template.user_list[template.user_id_list[template.user.name]]}}님의 마이페이지</h3><br>
+    <h3 class="name">{{template.user_list[template.user_id_list[template.user.name]]}}님의 마이페이지</h3>
     <ul class="products">
         <li class="first"><span class="product-name">물품</span><span class="price">가격</span><span class="soldout">sold</span></li>
     {% for product in template.all_Products %}
@@ -21,20 +21,14 @@
             </li>
         {%endif%}
     {% endfor %}
-    </ul>
+
     <ul class="follows">
         <li class="follow-list first">
             <span class="follow-name">유저</span>
-            <span class="follow">
-                팔로우
-            </span>
         </li>
-        {% for user in template.user_list %}
+        {% for ID in template.user.followerlist %}
             <li class="follow-list">
-                <span class="follow-name">{{ user.name }}</span>
-                <span class="follow">
-                    팔로우
-                </span>
+                <span class="follow-name"><form action="/GotoFollower"><input type="submit" value={{ID}} name="ID" style="background:none;border:none"></form></span>
             </li>
         {% endfor %}
     </ul>

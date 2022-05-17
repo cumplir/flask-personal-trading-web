@@ -12,6 +12,7 @@ const product_updateClose = $('.update .close-form');
 
 
 $(document).ready(function(){
+
     myPageLink.click(function(e){
         e.preventDefault();
         myPageInterface.animate({left:'60%'});

@@ -28,7 +28,14 @@ class User:
                 user.log_instance()
                 return user
         return None
-    
+    def AddFollow(self,ID):
+        if ID not in self.followerlist:
+            self.followerlist.append(ID)
+            
+    def DelFollow(self,ID):
+        if ID not in self.followerlist:
+            self.followerlist.remove(ID)
+            
     @classmethod
     def logout(cls):
         for user in cls.user_list:

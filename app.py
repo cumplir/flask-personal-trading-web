@@ -15,6 +15,7 @@ template = {
     'current_page': 0,              # 페이지네이션 번호
     'user_id_list': {},
     'all_Products': Product.product_list, # 등록된 전체 물품 리스트
+    'selected_follower':None
 }
 
 #초기화 -> 매번 회원가입하기 매우 귀찮기 때문에 미리 초기화 해두기!
@@ -98,7 +99,7 @@ def logout():
     User.logout()
     template['user'] = None
     return redirect('/')
-
+    
 #물품 조회
 @APP.route('/product')
 def product():
@@ -115,6 +116,13 @@ def Search():
             template['product_list'].append(i)
     return render_template('product.html', template=template)
 
+@APP.route('/GotoFollower')
+def GotoFollower():
+    ID=request.args.get('ID')
+    for user in User.user_list:
+        if user.name == ID:
+            template['selected_follower']=user
+    return render_template('otherpage.html',template=template)
 #물품 정보
 @APP.route('/product-info/<int:product_id>')
 def product_info(product_id):
@@ -162,6 +170,17 @@ def product_delete(product_id):
     template['all_Products'] = Product.product_list
     return redirect('/product');
 
+#FOllOW
+@APP.route('/Follow')
+def follow():
+    ID=request.args.get('ID')
+    if ID not in template['user'].followerlist:
+        template['user'].AddFollow(ID)
+    else:
+        template['user'].DelFollow(ID)
+    return redirect('/mypage')
+
+    
 #페이지네이션
 @APP.route('/page_up')
 def pageUp():

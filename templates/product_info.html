@@ -27,6 +27,9 @@
                 <p class="title">판매 상태 : 판매중</p>
                 <hr>
             {% endif %}
+                <form action="/Follow"><button type="submit" value={{product.user_id}} name=ID>팔로우</form>
+ 
+            
         </div>
         <img src="{{ img_url }}" alt="{{ product.name }}">
         <a class="aLink backLink" href="/product">물품 더 보기</a>
