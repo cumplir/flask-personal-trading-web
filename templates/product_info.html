@@ -31,7 +31,7 @@
  
             
         </div>
-        <img src="{{ img_url }}" alt="{{ product.name }}">
+        <img src="{{img_url}}" alt="{{ product.name }}">
         <a class="aLink backLink" href="/product">물품 더 보기</a>
         {% if template.user.name == product.user_id %}
             <a class="aLink updateLink" href="#">수정하기</a>
@@ -39,7 +39,7 @@
 
 
         <!--물품등록 폼-->
-        <form class="product-form update" action="/product-update/{{product.id}}" method="post">
+        <form class="product-form update" action="/product-update/{{product.id}}" method="post" enctype = "multipart/form-data">
             <div class="labels">
                 <div class="label">
                     <label for="name">Name</label>
@@ -55,15 +55,7 @@
                 </div>
                 <div class="label">
                     <label for="image">Image</label>
-                    <select name="image" id="image">
-                        {% for op in option_list %}
-                            {% if loop.index == product.selected_id %}
-                            <option value="{{loop.index0}}" selected>{{op}}</option>
-                            {% else %}
-                            <option value="{{loop.index0}}">{{op}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+                    <input type="file" name="image">
                 </div>
             </div>
 

@@ -20,7 +20,7 @@
 <body>
     {% if template.user.isLogged %}
     <!--물품등록 폼-->
-    <form class="product-form post" action="/product-form" method="post">
+    <form class="product-form post" action="/product-form" method="post" enctype = "multipart/form-data">
         <div class="labels">
             <div class="label">
                 <label for="name">Name</label>
@@ -36,11 +36,7 @@
             </div>
             <div class="label">
                 <label for="image">Image</label>
-                <select name="image" id="image">
-                    {% for op in option_list %}
-                        <option value="{{loop.index0}}">{{op}}</option>
-                    {% endfor %}
-                </select>
+                <input type="file" name="image">
             </div>
         </div>
         

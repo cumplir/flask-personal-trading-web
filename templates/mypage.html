@@ -28,7 +28,7 @@
         </li>
         {% for ID in template.user.followerlist %}
             <li class="follow-list">
-                <span class="follow-name"><form action="/GotoFollower"><input type="submit" value={{ID}} name="ID" style="background:none;border:none"></form></span>
+                <span class="follow-name"><form action="/GotoFollower"><input type="submit" value={{ID}} name="ID" style="background:none;border:none;cursor:pointer;"></form></span>
             </li>
         {% endfor %}
     </ul>

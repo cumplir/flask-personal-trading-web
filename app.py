@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
 from user import User
 from product import Product
-
+import os
 # 웹 서버 생성
 APP = Flask(__name__)
 
@@ -23,16 +24,15 @@ User.add_user('nojy99', '1234')
 User.add_user('junsu', '1111')
 User.add_user('leejunsoo','1111');
 
-Product.add_product('삼성 갤럭시 핸드폰','2년 정도 지났지만 여전히 쓸만한 최신 핸드폰', 100000,  '중고', 'junsu', 0)
-Product.add_product('Mouse','old mouse, and expensive', 20000, '중고', 'nojy99', 0)
-Product.add_product('Math book','5학년때 썼던 교과서', 15000, '쓸만한', 'junsu', 1)
-Product.add_product('자아와 명상 book','000교수님 자아아 명상 교재', 6000, '필수교재', 'leejunsoo', 2)
-Product.add_product('오마이걸 음원','리얼러브 앨범', 30000, '최신', 'nojy99', 3)
-Product.add_product('컴퓨터 구조 족보','2009년부터 21년까지의 족보모음집', 40000, '필수', 'leejunsoo', 2)
-Product.add_product('디지털 신호 처리 솔루션','퀴즈 및 과제 솔루션', 28000, '필수교재', 'junsu', 4)
-Product.add_product('스타벅스 아메리카노 기프티콘', '2023년 6월까지 쓸 수 있는 아이스 아메리카노 기프티콘', 4500, '디저트', 'junsu', 0)
-Product.add_product('베스킨라빈스 엄마는 외계인 기프티콘', '2023년 6월까지 쓸 수 있는 선물용 기프티콘', 5000, '디저트', 'junsu', 3)
-
+Product.add_product('삼성 갤럭시 핸드폰','2년 정도 지났지만 여전히 쓸만한 최신 핸드폰', 100000,  '중고', 'junsu', 0,"smartphone.png")
+Product.add_product('Mouse','old mouse, and expensive', 20000, '중고', 'nojy99', 0,"smartphone.png")
+Product.add_product('Math book','5학년때 썼던 교과서', 15000, '쓸만한', 'junsu', 1,"smartphone.png")
+Product.add_product('자아와 명상 book','000교수님 자아아 명상 교재', 6000, '필수교재', 'leejunsoo', 2,"smartphone.png")
+Product.add_product('오마이걸 음원','리얼러브 앨범', 30000, '최신', 'nojy99', 3,"smartphone.png")
+Product.add_product('컴퓨터 구조 족보','2009년부터 21년까지의 족보모음집', 40000, '필수', 'leejunsoo', 2,"smartphone.png")
+Product.add_product('디지털 신호 처리 솔루션','퀴즈 및 과제 솔루션', 28000, '필수교재', 'junsu', 4,"smartphone.png")
+Product.add_product('스타벅스 아메리카노 기프티콘', '2023년 6월까지 쓸 수 있는 아이스 아메리카노 기프티콘', 4500, '디저트', 'junsu', 0,"smartphone.png")
+Product.add_product('베스킨라빈스 엄마는 외계인 기프티콘', '2023년 6월까지 쓸 수 있는 선물용 기프티콘', 5000, '디저트', 'junsu', 3,"smartphone.png")
 
 
 #메인화면
@@ -85,11 +85,14 @@ def Upload():
         name=request.form['name']
         keword=request.form['keyword']
         Price=request.form['price']
-        ImageId=int(request.form['image'])
+        file=request.files['image']
+        filename = secure_filename(file.filename)
+        os.makedirs("./static/images", exist_ok=True)
+        file.save(os.path.join("./static/images/", filename))
         Desc=request.form['desc']
     else:
         return redirect('/')
-    id = Product.add_product(name, Desc, Price, keword, template['user'].name, ImageId)
+    id = Product.add_product(name, Desc, Price, keword, template['user'].name, template['user'].id, filename)
     template['all_Products']=Product.product_list
     return render_template('mypage.html', template=template)
 
@@ -127,8 +130,8 @@ def GotoFollower():
 @APP.route('/product-info/<int:product_id>')
 def product_info(product_id):
     product = Product.search(product_id)
-    img_url = url_for('static', filename=f'images/{product_images[product.selected_id]}.jpg');
-    return render_template('product_info.html', template=template, product=product, img_url = img_url);
+    img_url="../static/images/"+product.image_name
+    return render_template('product_info.html', template=template, product=product,img_url=img_url);
 
 @APP.route('/mypage')
 def mypage():
@@ -143,7 +146,11 @@ def product_update(product_id):
     product.name=request.form['name']
     product.keyword=request.form['keyword']
     product.price=request.form['price']
-    product.selected_id=int(request.form['image'])
+    file=request.files['image']
+    filename = secure_filename(file.filename)
+    os.makedirs("./static/images", exist_ok=True)
+    file.save(os.path.join("./static/images/", filename))
+    product.image_name=filename
     product.desc=request.form['desc']
 
     template['all_Products'] = Product.product_list;
