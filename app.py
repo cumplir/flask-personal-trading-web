@@ -24,15 +24,18 @@ User.add_user('nojy99', '1234')
 User.add_user('junsu', '1111')
 User.add_user('leejunsoo','1111');
 
-Product.add_product('삼성 갤럭시 핸드폰','2년 정도 지났지만 여전히 쓸만한 최신 핸드폰', 100000,  '중고', 'junsu', 0,"smartphone.png")
-Product.add_product('Mouse','old mouse, and expensive', 20000, '중고', 'nojy99', 0,"smartphone.png")
-Product.add_product('Math book','5학년때 썼던 교과서', 15000, '쓸만한', 'junsu', 1,"smartphone.png")
-Product.add_product('자아와 명상 book','000교수님 자아아 명상 교재', 6000, '필수교재', 'leejunsoo', 2,"smartphone.png")
-Product.add_product('오마이걸 음원','리얼러브 앨범', 30000, '최신', 'nojy99', 3,"smartphone.png")
-Product.add_product('컴퓨터 구조 족보','2009년부터 21년까지의 족보모음집', 40000, '필수', 'leejunsoo', 2,"smartphone.png")
-Product.add_product('디지털 신호 처리 솔루션','퀴즈 및 과제 솔루션', 28000, '필수교재', 'junsu', 4,"smartphone.png")
-Product.add_product('스타벅스 아메리카노 기프티콘', '2023년 6월까지 쓸 수 있는 아이스 아메리카노 기프티콘', 4500, '디저트', 'junsu', 0,"smartphone.png")
-Product.add_product('베스킨라빈스 엄마는 외계인 기프티콘', '2023년 6월까지 쓸 수 있는 선물용 기프티콘', 5000, '디저트', 'junsu', 3,"smartphone.png")
+Product.add_product('아이폰12pro','2년 정도 지났지만 여전히 쓸만한 최신 핸드폰', 300000,  '핸드폰', 'junsu', 0,"smartphone.png")
+Product.add_product('Mouse','old mouse, and expensive', 20000, '마우스', 'nojy99', 0,"Mouse.png")
+Product.add_product('Math book','5학년때 썼던 교과서', 15000, '교양책', 'junsu', 1,"MathBook.png")
+Product.add_product('자아와 명상 book','000교수님 자아아 명상 교재', 6000, '교양책', 'leejunsoo', 2,"Meditation.png")
+Product.add_product('오마이걸 음원','리얼러브 앨범', 30000, '최신', 'nojy99', 3,"OhmygirlAlbum.png")
+Product.add_product('컴퓨터 구조 족보','2009년부터 21년까지의 족보모음집', 40000, '전공책', 'leejunsoo', 2,"CompuScience.png")
+Product.add_product('디지털 신호 처리 솔루션','퀴즈 및 과제 솔루션', 28000, '전공책', 'junsu', 4,"Digital.png")
+Product.add_product('스타벅스 아메리카노 기프티콘', '2023년 6월까지 쓸 수 있는 아이스 아메리카노 기프티콘', 4500, '기프티콘', 'junsu', 0,"Starbugs.png")
+Product.add_product('베스킨라빈스 파인트 기프티콘', '8200->7000에 팝니다', 7000, '기프티콘', 'junsu', 3,"Bera31.png")
+Product.add_product('GallexyS21+','미개봉상품', 200000, '핸드폰', 'nojy99', 0,"GallexyS21.png")
+Product.add_product('나이키 에어맥스','사이즈가 안맞아서 팝니다.', 180000, '신발', 'nojy99', 0,"NikeShoes.png")
+Product.add_product('스타벅스 기프티콘 팝니다','5000->4500에 팝니다', 4500, '기프티콘', 'junsu', 0,"Starbugs.png")
 
 
 #메인화면
@@ -180,12 +183,15 @@ def product_delete(product_id):
 #FOllOW
 @APP.route('/Follow')
 def follow():
-    ID=request.args.get('ID')
-    if ID not in template['user'].followerlist:
-        template['user'].AddFollow(ID)
+    if template['user']!= None:
+        ID=request.args.get('ID')
+        if ID not in template['user'].followerlist:
+            template['user'].AddFollow(ID)
+        else:
+            template['user'].DelFollow(ID)
+        return redirect('/mypage')
     else:
-        template['user'].DelFollow(ID)
-    return redirect('/mypage')
+        return redirect('/login')
 
     
 #페이지네이션
